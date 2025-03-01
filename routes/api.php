@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,7 +20,11 @@ use Illuminate\Support\Facades\Route;
     return $request->user();
 }); */
 
-Route::middleware(['api-key'])->group(function () {
+Route::middleware(["api-key"])->group(function () {
     Route::post("/register", [AuthController::class, "store"]);
     Route::post("/login", [AuthController::class, "index"]);
+
+    Route::middleware(["auth:sanctum"])->group(function () {
+        Route::post("/posts", [PostController::class, "store"]);
+    });
 });
