@@ -3,11 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostCreateRequest;
+use App\Http\Requests\PostIndexRequest;
+use App\Http\Resources\PostCollection;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    public function index(PostIndexRequest $postCreateRequest)
+    {
+        $perPage = $postCreateRequest->per_page;
+        $search = $postCreateRequest->search;
+
+        $posts = Post::with("user")
+            ->search($search)
+            ->latest()
+            ->paginate($perPage);
+
+        return PostCollection::make($posts);
+    }
+
     public function store(PostCreateRequest $postCreateRequest)
     {
         $validated = $postCreateRequest->validated();
