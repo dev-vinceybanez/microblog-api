@@ -3,12 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CommentCreateRequest;
+use App\Http\Requests\CommentIndexRequest;
+use App\Http\Resources\CommentResourceCollection;
 use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
+    public function index(CommentIndexRequest $commentIndexRequest, Post $post)
+    {
+        $perPage = $commentIndexRequest->per_page;
+
+        $comments = $post->comments()->latest()->paginate($perPage);
+
+        return CommentResourceCollection::make($comments);
+    }
+
     public function store(CommentCreateRequest $commentCreateRequest, Post $post)
     {
         $validated = $commentCreateRequest->validated();
