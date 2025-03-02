@@ -27,5 +27,6 @@ Route::middleware(["api-key"])->group(function () {
     Route::middleware(["auth:sanctum"])->group(function () {
         Route::get("/posts", [PostController::class, "index"]);
         Route::post("/posts", [PostController::class, "store"]);
+        Route::put("/posts/{post}", [PostController::class, "update"]);
     });
 });
