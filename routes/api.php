@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -29,5 +30,6 @@ Route::middleware(["api-key"])->group(function () {
         Route::post("/posts", [PostController::class, "store"]);
         Route::put("/posts/{post}", [PostController::class, "update"]);
         Route::delete("/posts/{post}", [PostController::class, "destroy"]);
+        Route::post("/posts/{post}/likes", [LikeController::class, "likeUnlike"]);
     });
 });
