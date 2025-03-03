@@ -36,6 +36,11 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
+    public function sharedPost(): BelongsTo
+    {
+        return $this->belongsTo(Post::class, "post_id");
+    }
+
     public function scopeSearch(Builder $query, $search): void
     {
         $query->where("body", "LIKE", "%$search%");

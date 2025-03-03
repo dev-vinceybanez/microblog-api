@@ -6,6 +6,7 @@ use App\Http\Requests\PostCreateRequest;
 use App\Http\Requests\PostIndexRequest;
 use App\Http\Requests\PostUpdateRequest;
 use App\Http\Resources\PostCollection;
+use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -22,6 +23,11 @@ class PostController extends Controller
             ->paginate($perPage);
 
         return PostCollection::make($posts);
+    }
+
+    public function show(Post $post)
+    {
+        return new PostResource($post);
     }
 
     public function store(PostCreateRequest $postCreateRequest)
