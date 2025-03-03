@@ -19,7 +19,7 @@ class CheckAPIKey
         $validApiKey = env('API_KEY');
 
         if($reqApiKey !== $validApiKey) {
-            return response("Unauthorized", 401);
+            return response()->json("Unauthorized", 401);
         }
 
         return $next($request);

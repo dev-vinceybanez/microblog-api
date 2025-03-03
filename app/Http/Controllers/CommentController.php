@@ -44,4 +44,11 @@ class CommentController extends Controller
 
         return response($comment, 200);
     }
+
+    public function destroy(Post $post, Comment $comment)
+    {
+        $comment-> delete();
+        
+        return response("Successfully Deleted", 200);
+    }
 }
