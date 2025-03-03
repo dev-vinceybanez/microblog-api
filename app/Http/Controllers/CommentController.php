@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CommentCreateRequest;
 use App\Http\Requests\CommentIndexRequest;
+use App\Http\Requests\CommentUpdateRequest;
 use App\Http\Resources\CommentResourceCollection;
 use App\Models\Comment;
 use App\Models\Post;
@@ -31,5 +32,16 @@ class CommentController extends Controller
         ]);
 
         return response($comment, 201);
+    }
+
+    public function update(CommentUpdateRequest $commentUpdateRequest, Post $post, Comment $comment)
+    {
+        $validated = $commentUpdateRequest->validated();
+
+        $comment->update([
+            "body" => $validated["body"]
+        ]);
+
+        return response($comment, 200);
     }
 }

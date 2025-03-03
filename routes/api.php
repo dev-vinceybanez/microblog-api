@@ -31,8 +31,11 @@ Route::middleware(["api-key"])->group(function () {
         Route::post("/posts", [PostController::class, "store"]);
         Route::put("/posts/{post}", [PostController::class, "update"]);
         Route::delete("/posts/{post}", [PostController::class, "destroy"]);
-        Route::post("/posts/{post}/like", [LikeController::class, "likeUnlike"]);
-        Route::post("/posts/{post}/comment", [CommentController::class, "store"]);
+        Route::post("/posts/{post}/likes", [LikeController::class, "likeUnlike"]);
+        Route::post("/posts/{post}/comments", [CommentController::class, "store"]);
         Route::get("/posts/{post}/comments", [CommentController::class, "index"]);
+        Route::middleware(["comment-owner", "comment-belongsto-post"])->group(function () {
+            Route::put("/posts/{post}/comments/{comment}", [CommentController::class, "update"]);
+        });
     });
 });
