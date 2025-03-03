@@ -19,6 +19,7 @@ class PostResource extends JsonResource
             "body" => $this->body,
             "image_path" => $this->image,
             "user" => $this->user,
+            "shared_post" => $this->post_id ? new PostResource($this->sharedPost) : null,
             "created_at" => $this->created_at,
             "updated_at" => $this->updated_at,
         ];
