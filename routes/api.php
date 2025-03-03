@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ShareController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -38,5 +39,6 @@ Route::middleware(["api-key"])->group(function () {
             Route::put("/posts/{post}/comments/{comment}", [CommentController::class, "update"]);
             Route::delete("/posts/{post}/comments/{comment}", [CommentController::class, "destroy"]);
         });
+        Route::post("/posts/{post}/shares", [ShareController::class, "store"]);
     });
 });
