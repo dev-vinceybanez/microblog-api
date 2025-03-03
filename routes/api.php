@@ -36,6 +36,7 @@ Route::middleware(["api-key"])->group(function () {
         Route::get("/posts/{post}/comments", [CommentController::class, "index"]);
         Route::middleware(["comment-owner", "comment-belongsto-post"])->group(function () {
             Route::put("/posts/{post}/comments/{comment}", [CommentController::class, "update"]);
+            Route::delete("/posts/{post}/comments/{comment}", [CommentController::class, "destroy"]);
         });
     });
 });
