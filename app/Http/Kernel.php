@@ -40,7 +40,7 @@ class Kernel extends HttpKernel
 
         'api' => [
             \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-            \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
+            \Illuminate\Routing\Middleware\ThrottleRequests::class . ':api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];
@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'api-key' => \App\Http\Middleware\CheckAPIKey::class,
         'comment-owner' => \App\Http\Middleware\CheckCommentOwner::class,
         'comment-belongsto-post' => \App\Http\Middleware\CommentBelongsToPost::class,
+        'self-follow' => \App\Http\Middleware\PreventSelfFollow::class,
     ];
 }
